@@ -1,10 +1,10 @@
-const path = require("path");
-const express = require("express");
+const path = require('path');
+const express = require('express');
 
-const dotenv = require("dotenv").config();
-const colors = require("colors");
-const { errorHandler } = require("./middleWare/errorMiddleware");
-const connectDB = require("./config/db");
+const dotenv = require('dotenv').config();
+const colors = require('colors');
+const { errorHandler } = require('./middleWare/errorMiddleware');
+const connectDB = require('./config/db');
 const PORT = process.env.PORT || 5000;
 
 //  conmect to db
@@ -14,20 +14,20 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // routes
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/tickets", require("./routes/ticketRoutes"));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/tickets', require('./routes/ticketRoutes'));
 
 //  serve frontend
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   // set build folder as static
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
-
-  app.get("*", (req, res) =>
-    res.sendFile(__dirname, "../", "frontend", "build", "index.html")
-  );
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
+  // FIX: below code fixes app crashing on refresh in deployment
+  app.get('*', (_, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+  });
 } else {
-  app.get("/", (req, res) => {
-    res.status(200).json({ message: "welcome to bintGO Api" });
+  app.get('/', (req, res) => {
+    res.status(200).json({ message: 'welcome to bintGO Api' });
   });
 }
 
