@@ -1,7 +1,7 @@
-const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
+const asyncHandler = require('express-async-handler');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
 
 // register a new user
 // @route /api/users
@@ -10,13 +10,13 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, surname, email, phoneNo, phoneNo2, password, city } = req.body;
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error("pls include all fields");
+    throw new Error('pls include all fields');
   }
 
   const userExist = await User.findOne({ email });
   if (userExist) {
     res.status(400);
-    throw new Error("user already exist");
+    throw new Error('user already exist');
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -43,7 +43,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Invailed Data");
+    throw new Error('Invailed Data');
   }
   res.send(req.body);
 });
@@ -66,7 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("user doest not exist");
+    throw new Error('user doest not exist');
   }
 });
 // @desc update a  user
@@ -77,21 +77,29 @@ const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401);
-    throw new Error("user not found");
+    throw new Error('user not found');
   }
   const ticket = await User.findById(req.params.id);
   if (!ticket) {
     res.status(404);
-    throw new Error("ticket not found");
+    throw new Error('ticket not found');
   }
   if (ticket._id.toString() !== req.user.id) {
     res.status(401);
-    throw new Error("not authorized");
+    throw new Error('not authorized');
   }
-  const updatedTicket = await User.findByIdAndUpdate(req.params.id, req.body, {
+  const data = {
+    ...req.body,
+  };
+  const updatedTicket = await User.findByIdAndUpdate(req.params.id, data, {
     new: true,
   });
-  res.status(200).json(updatedTicket);
+  const ress = {
+    ...updatedTicket._doc,
+    token: generateToken(user._id),
+  };
+
+  res.status(200).json(ress);
 });
 
 // @get current user
@@ -108,7 +116,7 @@ const getME = asyncHandler(async (req, res) => {
 });
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
+    expiresIn: '30d',
   });
 };
 module.exports = {

@@ -1,6 +1,12 @@
 .all-T-c {
   text-align: center;
 }
+.all-s18px {
+  font-size: 18px;
+}
+.all-s25px {
+  font-size: 25px;
+}
 .all-FAC {
   display: flex;
   align-items: center;
@@ -68,6 +74,9 @@
 .all-H-36px {
   height: 36px;
 }
+.all-H-30px {
+  height: 30px;
+}
 /* backgorund */
 .all-B-green {
   background-color: #048c04;
@@ -103,11 +112,21 @@
   display: flex;
   justify-content: space-between;
 }
+.m-top15 {
+  margin-top: 15px;
+}
 
 .all-box {
   display: flex;
   flex-direction: column;
   margin: 5px 10px;
+  margin-bottom: 5px;
+}
+.all-box-full {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 10px;
+  width: 100%;
   margin-bottom: 5px;
 }
 /* namees  */
@@ -136,6 +155,11 @@
   border: 1px solid gray;
   padding: 5px;
   border-radius: 4px;
+}
+.all-f-center {
+  display: flex;
+  justify-content: center;
+  all: unset;
 }
 .all-form-input:focus {
   outline-color: #0474bc;
@@ -175,7 +199,7 @@
   border-spacing: 0px;
   border-collapse: separate;
   width: 100%;
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-weight: 600;
   width: 600px;
   margin-bottom: 10px;

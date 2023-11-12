@@ -1,15 +1,16 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authService from "./authService";
-const user = JSON.parse(localStorage.getItem("user"));
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+import authService from './authService';
+const user = JSON.parse(localStorage.getItem('user'));
 const initialState = {
   user: user ? user : null,
   isError: false,
   isLoading: false,
   isSuccess: false,
-  message: "",
+  message: '',
 };
 export const register = createAsyncThunk(
-  "auth/register",
+  'auth/register',
   async (user, thunkApi) => {
     try {
       return await authService.register(user);
@@ -25,7 +26,7 @@ export const register = createAsyncThunk(
   }
 );
 
-export const login = createAsyncThunk("auth/login", async (user, thunkApi) => {
+export const login = createAsyncThunk('auth/login', async (user, thunkApi) => {
   try {
     return await authService.login(user);
   } catch (error) {
@@ -36,20 +37,37 @@ export const login = createAsyncThunk("auth/login", async (user, thunkApi) => {
     return thunkApi.rejectWithValue(message);
   }
 });
-//
+export const update = createAsyncThunk(
+  'auth/update',
+  async (userData, thunkApi) => {
+    try {
+      const token = thunkApi.getState().auth.user.token;
 
-export const logout = createAsyncThunk("auth/logout", async () => {
+      return await authService.update(user._id, userData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+export const logout = createAsyncThunk('auth/logout', async () => {
   await authService.logout();
 });
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     reset: (state) => {
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = false;
-      state.message = "";
+      state.message = '';
     },
   },
   extraReducers: (builder) => {
@@ -82,6 +100,21 @@ export const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.user = null;
+      })
+      .addCase(update.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(update.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+        toast.dismiss();
+        toast.success('profile updated');
+      })
+      .addCase(update.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       })
       // logout
       .addCase(logout.fulfilled, (state) => {

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
 .all-app {
   height: 100vh;
   display: flex;
@@ -15,8 +15,8 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 50px;
-  padding: 0 20px;
-  font-family: "Ubuntu", sans-serif;
+  padding: 0 0px;
+  font-family: 'Ubuntu', sans-serif;
 }
 h1,
 h2,
@@ -40,7 +40,7 @@ h3 {
   text-decoration: none;
   gap: 10px;
   font-weight: 600;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   background-color: transparent;
   border: 2px solid black;
   color: black;
@@ -60,7 +60,7 @@ h3 {
   text-decoration: none;
   gap: 10px;
   font-weight: 600;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   background-color: black;
   border: 2px solid black;
   color: white;
@@ -87,7 +87,7 @@ h3 {
     text-decoration: none;
     gap: 10px;
     font-weight: 600;
-    font-family: "Nunito", sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: transparent;
     border: 2px solid black;
     color: black;
@@ -107,7 +107,7 @@ h3 {
     text-decoration: none;
     gap: 10px;
     font-weight: 600;
-    font-family: "Nunito", sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: black;
     border: 2px solid black;
     color: white;
@@ -136,7 +136,7 @@ h3 {
     text-decoration: none;
     gap: 10px;
     font-weight: 600;
-    font-family: "Nunito", sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: transparent;
     border: 2px solid black;
     color: black;
@@ -156,7 +156,7 @@ h3 {
     text-decoration: none;
     gap: 10px;
     font-weight: 600;
-    font-family: "Nunito", sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: black;
     border: 2px solid black;
     color: white;

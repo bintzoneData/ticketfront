@@ -5,8 +5,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,7 +18,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
 } */
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 input::-webkit-outer-spin-button,
@@ -55,7 +55,7 @@ input::-webkit-inner-spin-button {
 }
 
 .Kspinner::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -94,7 +94,7 @@ input::-webkit-inner-spin-button {
 
 .spinner::before,
 .spinner::after {
-  content: "";
+  content: '';
   grid-area: 1/1;
   margin: 2.2px;
   border: inherit;
@@ -140,5 +140,61 @@ input::-webkit-inner-spin-button {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* book */
+
+.book-spinner {
+  position: relative;
+  width: 52.8px;
+  height: 52.8px;
+  perspective: 105.6px;
+}
+
+.book-spinner div {
+  width: 100%;
+  height: 100%;
+  background: #142c54;
+  position: absolute;
+  left: 50%;
+  transform-origin: left;
+  animation: spinner-16s03x 2s infinite;
+}
+
+.book-spinner div:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+.book-spinner div:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.book-spinner div:nth-child(3) {
+  animation-delay: 0.45s;
+}
+
+.book-spinner div:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.book-spinner div:nth-child(5) {
+  animation-delay: 0.75s;
+}
+
+@keyframes spinner-16s03x {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  50%,
+  80% {
+    transform: rotateY(-180deg);
+  }
+
+  90%,
+  100% {
+    opacity: 0;
+    transform: rotateY(-180deg);
   }
 }

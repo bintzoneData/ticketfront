@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import "../CSS/pages/tickets.css";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import ButtonBack from "../components/ButtonBack";
-import { FaFrown } from "react-icons/fa";
-
-import Kspinner from "../assets/Kspinner";
-import { getTickets } from "../features/tickets/ticketSlice";
-import { toast } from "react-toastify";
+import React, { useEffect } from 'react';
+import '../CSS/pages/tickets.css';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import ButtonBack from '../components/ButtonBack';
+import { FaFrown } from 'react-icons/fa';
+import BookSpinner from '../assets/BookSpinner';
+import Kspinner from '../assets/Kspinner';
+import { getTickets } from '../features/tickets/ticketSlice';
+import { toast } from 'react-toastify';
 function Tickets() {
   const { tickets, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.ticket
@@ -19,71 +19,69 @@ function Tickets() {
     }
     dispatch(getTickets());
   }, [dispatch, isError, isSuccess, message]);
-
+  useEffect(() => {
+    dispatch(getTickets());
+  }, [dispatch]);
   return (
-    <div className="main-Tickets">
-      <div className="m-Tickets">
-        <div className="Tickets">
-          <div className="all-boxes Tickets-title ">
-            <h1>my tickets</h1>
-            <ButtonBack url={"/"} />
+    <div className='tickets'>
+      <main className='tickets-card'>
+        {isLoading && (
+          <div className='isloading-box'>
+            <BookSpinner />
+            <h1>please wait</h1>
           </div>
-          {isLoading ? (
-            <div className="Tickets-loading">
-              <Kspinner />
-              <h1>please wait</h1>
-            </div>
-          ) : (
-            <>
-              {tickets && tickets.length > 0 ? (
-                <div className="Tickets-lists">
-                  <ul className="Tickets-header-list">
-                    <li className="Tickets-date">date</li>
-                    <li className="Tickets-product">product</li>
-                    <li className="tickets-btns">
-                      <div className="Tickets-status ">status</div>
-                      <div className="Tickets-view">view</div>
-                    </li>
-                  </ul>
-                  {tickets.map((ticket, index) => (
-                    <ul key={index} className="Tickets-data-list">
-                      <li className="Tickets-date">
-                        {new Date(ticket.createdAt).toLocaleString("en-NZ")}
-                      </li>
-                      <li className="Tickets-product">{ticket.product}</li>
-                      <li className="tickets-btns">
-                        <div
-                          className={
-                            ticket.status === "closed"
-                              ? "Ticket-status all-B-navy"
-                              : "Ticket-status all-B-green"
-                          }
-                        >
-                          {ticket.status}
-                        </div>
-                        <Link
-                          to={`/ticket/${ticket._id}`}
-                          className="Ticket-view"
-                        >
-                          view
-                        </Link>
-                      </li>
-                    </ul>
-                  ))}
-                  {/* data */}
-                </div>
-              ) : (
-                <div className="Tickets-loading">
-                  <FaFrown className="Tickets-none-icon" />
-                  <h1>there are no tickets submitted under your account</h1>
-                </div>
-              )}
-            </>
-          )}
+        )}
+        <header className='all-boxes tickets-title '>
+          <h1>my tickets</h1>
+          <div className='tickets-back'>
+            <ButtonBack url={'/'} />
+          </div>
+        </header>
+        {!isLoading && (
+          <>
+            <section className='tickets-section'>
+              <table className='tickets-table'>
+                <thead className='tickets-Thead'>
+                  <tr>
+                    <th>date</th>
+                    <th>product</th>
+                    <th>status </th>
+                    <th>view</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className='tickets-hide'>
+                    <th>m</th>
+                  </tr>
 
-          {/* <h2>all your tickets are here </h2> */}
-        </div>
-      </div>
+                  {tickets &&
+                    tickets.map((ticket) => (
+                      <tr key={ticket._id} className='tickets-Tdata'>
+                        <td>
+                          {new Date(ticket.createdAt).toLocaleString('en-US')}
+                        </td>
+                        <td>{ticket.product}</td>
+                        <td>
+                          <div className='all-f-center'>{ticket.status}</div>
+                        </td>
+                        <td>
+                          <Link
+                            to={`/ticket/${ticket._id}`}
+                            className='all-f-center'
+                          >
+                            <button className='all-btn-submit all-B-main'>
+                              view
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </section>
+          </>
+        )}
+      </main>
     </div>
   );
 }

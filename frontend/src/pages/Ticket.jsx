@@ -1,161 +1,149 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { FaQuestionCircle } from "react-icons/fa";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { FaCheckCircle, FaQuestionCircle } from 'react-icons/fa';
 
-import { toast } from "react-toastify";
-import "../CSS/pages/ticket.css";
-import { getTicket, closeTicket } from "../features/tickets/ticketSlice";
-import { useNavigate, useParams } from "react-router-dom";
-import ButtonBack from "../components/ButtonBack";
-import Kspinner from "../assets/Kspinner";
+import { toast } from 'react-toastify';
+import '../CSS/pages/ticket.css';
+import { getTicket, closeTicket } from '../features/tickets/ticketSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import ButtonBack from '../components/ButtonBack';
+import Kspinner from '../assets/Kspinner';
+import BookSpinner from '../assets/BookSpinner';
 function Ticket() {
   const { ticket, isSuccess, isLoading, message, isError } = useSelector(
     (state) => state.ticket
   );
-
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     if (isError) {
       toast.error(message);
-      navigate("/tickets");
+      navigate('/tickets');
     }
     dispatch(getTicket(params.id));
   }, [dispatch, isError, params.id, navigate, isSuccess, message]);
   const onCloseTicket = () => {
     dispatch(closeTicket(params.id));
   };
+  useEffect(() => {
+    if (isLoading) {
+      setLoading(true);
+    }
+    if (!isLoading) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1300);
+    }
+  }, [isLoading]);
   return (
-    <div className="main-one-ticket">
-      <div className="one-ticket">
-        <div className="one-ticket-titles">
-          <h1>view ticket</h1>
-          <ButtonBack url={"/tickets"} />
-        </div>
-
-        {isLoading ? (
-          <div className="ticket-loading">
-            <Kspinner />
+    <div className='tickets'>
+      <main className='tickets-card'>
+        <header className='all-boxes tickets-title '>
+          <h1 onClick={() => console.log(ticket)}>ticket view</h1>
+          <div className='tickets-back'>
+            <ButtonBack url={'/tickets'} />
+          </div>
+        </header>
+        {loading ? (
+          <div className='isloading-box'>
+            <BookSpinner />
+            <h1>please wait</h1>
           </div>
         ) : (
-          <div className="ticket-data-list">
-            <div className="one-ticket-header ">
-              <ul className="one-ticket-info ">
-                <li>
-                  <div className="all-form-label one-ticket-label ">
-                    ticket:
-                  </div>
-                  <div className="all-form-label one-ticket-text">
-                    {" "}
-                    {ticket._id}
-                  </div>
-                </li>
-                <li>
-                  <div className="all-form-label one-ticket-label2 ">
-                    submitted date:
-                  </div>
-                  <div className="all-form-label one-ticket-text2">
-                    {new Date(ticket.createdAt).toLocaleString("en-NZ")}
-                  </div>
-                </li>
-              </ul>
-
-              <div className="all-form-box one-ticket-status-box">
-                <label className="all-form-label all-T-c">status</label>
-                <button
-                  className={
-                    ticket.status === "closed"
-                      ? "all-btn-submit one-ticket-active all-B-navy "
-                      : "all-btn-submit one-ticket-active "
-                  }
-                  disabled={true}
-                >
-                  {ticket.status}
-                </button>
-              </div>
-            </div>
-            <main className="one-ticket-body">
-              <div className="all-boxes">
-                <div className="all-box">
-                  <label htmlFor="" className="all-name-label all-c-g ">
-                    product name
-                  </label>
-                  <h1 className="all-name ticktet-font .all-TT-cap">
-                    {ticket.product}
-                  </h1>
+          <>
+            <section className='main-ticket'>
+              <header className='one-ticket-header'>
+                <div className='ticket-id-box'>
+                  <p>ticket id:</p>
+                  <h2>{ticket._id}</h2>
                 </div>
-                <div className="all-box">
-                  <label htmlFor="" className="all-name-label all-c-g ">
-                    purchase date
-                  </label>
-                  <h1 className="all-name ticktet-font all-TT-cap all-T-c">
-                    {ticket.purchase_date}
-                  </h1>
+                <div className='ticket-id-box'>
+                  <p>submitted date:</p>
+                  <h2>{new Date(ticket.createdAt).toLocaleString('en-US')}</h2>
                 </div>
-              </div>
-              <div className="all-box all--10px">
-                <label htmlFor="" className="all-name-label all-c-g ">
-                  issue
-                </label>
-                <h1 className="all-name ticktet-font all-TT-cap ">
-                  {ticket.problem}
-                </h1>
-              </div>
-              {/* stage one */}
-              <div className="all-boxes one-ticket-boxes OT-stage">
-                <div className="all-boxes">
-                  <div className="all-box">
-                    <label htmlFor="" className="all-name-label all-c-g ">
-                      stage one
+              </header>
+              <div className='one-ticket-details'>
+                <main className='one-ticket-line'>
+                  <div className='one-ticket-data'>
+                    <label
+                      htmlFor='
+            '
+                      className='all-label'
+                    >
+                      product name:
                     </label>
-                    <h1 className="all-name all-fz-18px .all-TT-cap all-FAC">
-                      comfirmed <FaQuestionCircle />
-                    </h1>
+                    <p>{ticket.product}</p>
                   </div>
-                  <div className="all-box">
-                    <label htmlFor="" className="all-name-label all-c-g ">
-                      warranty status
+                  <div className='one-ticket-data'>
+                    <label
+                      htmlFor='
+            '
+                      className='all-label'
+                    >
+                      purchase Date:
                     </label>
-                    <h1 className="all-name all-fz-18px all-TT-cap all-T-c all-c-green">
-                      active
-                    </h1>
+                    <p>{ticket.purchase_date}</p>
                   </div>
-                </div>
-
-                {/* COMMENT */}
-                <div className=" all-box OT-stage-comment">
-                  <label htmlFor="" className="all-name-label all-c-g ">
-                    message:
-                  </label>
-                  {ticket.status === "active" && (
-                    <h1 className="all-name">
-                      We kindly request that you bring the product experiencing
-                      issues back to our shop so that we can promptly address
-                      and resolve the problem to your satisfaction
-                    </h1>
-                  )}
-                  {ticket.status === "closed" && (
-                    <h1 className="all-name all-c-red">
-                      this ticket is closed
-                    </h1>
-                  )}
-                </div>
+                </main>
+                <main className='one-ticket-line'>
+                  <div className='one-ticket-data'>
+                    <label
+                      htmlFor='
+            '
+                      className='all-label'
+                    >
+                      product issue:
+                    </label>
+                    <p>{ticket.problem}</p>
+                  </div>
+                </main>
               </div>
-            </main>
-            {ticket.status !== "closed" && (
-              <div className="ticket-close-box">
-                <button
-                  className="all-btn-submit all-H-40px all-fz-25px all-W-100pc all-B-red "
-                  onClick={onCloseTicket}
-                >
-                  close ticket
-                </button>
+              {/* {stage one} */}
+              <div className='one-ticket-stages'>
+                <main className='one-ticket-line'>
+                  <div className='one-ticket-data'>
+                    <label className='all-label'>
+                      stage type
+                      <div className='ticket-stage-icon'>
+                        {/* <FaCheckCircle className='c-green' /> */}
+                        <FaQuestionCircle className='c-black' />
+                      </div>
+                    </label>
+                    <p>{ticket.stage && ticket.stage.type}</p>
+                  </div>
+                  <div className='one-ticket-data'>
+                    <label className='all-label'>warranty status</label>
+                    {ticket.stageType === 'confirme' ? (
+                      <p>---</p>
+                    ) : (
+                      <>
+                        {ticket.warranty !== false ? (
+                          <h2 className='c-green'>active</h2>
+                        ) : (
+                          <h2 className='c-red'>Expired</h2>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </main>
               </div>
-            )}
-          </div>
+              {/* {stage one} */}
+              <div className='one-ticket-stages'>
+                <main className='one-ticket-line'>
+                  <div className='one-ticket-data'>
+                    <label className='all-label'>message</label>
+                    <h2 className='stage-messsage'>
+                      {ticket.stage && ticket.stage.message}
+                    </h2>
+                  </div>
+                </main>
+              </div>
+            </section>
+          </>
         )}
-      </div>
+      </main>
     </div>
   );
 }

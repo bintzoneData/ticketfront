@@ -39,6 +39,9 @@ function NewTicket() {
       createTicket({
         product,
         problem,
+        purchase_date,
+        note,
+        serial,
       })
     )
       .unwrap()

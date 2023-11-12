@@ -1,6 +1,6 @@
-const asyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
-const Ticket = require("../models/ticketModel");
+const asyncHandler = require('express-async-handler');
+const User = require('../models/userModel');
+const Ticket = require('../models/ticketModel');
 // @get  user ticket
 // @route get/api/tickets
 // acess private
@@ -9,7 +9,7 @@ const getTickets = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401);
-    throw new Error("user not found");
+    throw new Error('user not found');
   }
   const tickets = await Ticket.find({ user: req.user.id });
   res.status(200).json(tickets);
@@ -19,17 +19,24 @@ const getTickets = asyncHandler(async (req, res) => {
 // @route post/api/tickets
 // acess private
 const createTicket = asyncHandler(async (req, res) => {
-  const { product, problem, purchase_date, serial, note } = req.body;
+  const { product, problem, purchase_date, serial, note, request, stageType } =
+    req.body;
   if (!product || !problem) {
     res.status(400);
-    throw new Error("please add product and issue");
+    throw new Error('please add product and issue');
   }
   // get user using th eid jwt
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401);
-    throw new Error("user not found");
+    throw new Error('user not found');
   }
+  let stage = {
+    type: 'Confirmation Stage',
+    message:
+      "We're in the process of confirming the details you submitted for your warranty. Once the confirmation is complete, we'll promptly notify you.",
+  };
+
   const ticket = await Ticket.create({
     product,
     problem,
@@ -39,7 +46,9 @@ const createTicket = asyncHandler(async (req, res) => {
     note,
     // created_date,
     // created_time,
-    status: "active",
+    status: 'active',
+    stage: stage,
+    stageType: 'confirme',
   });
   res.status(201).json(ticket);
 });
@@ -51,16 +60,16 @@ const getTicket = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401);
-    throw new Error("user not found");
+    throw new Error('user not found');
   }
   const ticket = await Ticket.findById(req.params.id);
   if (!ticket) {
     res.status(404);
-    throw new Error("ticket not found");
+    throw new Error('ticket not found');
   }
   if (ticket.user.toString() !== req.user.id) {
     res.status(401);
-    throw new Error("not authorized");
+    throw new Error('not authorized');
   }
 
   res.status(200).json(ticket);
@@ -72,16 +81,16 @@ const deleteTicket = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401);
-    throw new Error("user not found");
+    throw new Error('user not found');
   }
   const ticket = await Ticket.findById(req.params.id);
   if (!ticket) {
     res.status(404);
-    throw new Error("ticket not found");
+    throw new Error('ticket not found');
   }
   if (ticket.user.toString() !== req.user.id) {
     res.status(401);
-    throw new Error("not authorized");
+    throw new Error('not authorized');
   }
   await ticket.deleteOne();
   res.status(200).json({ success: true });
@@ -94,23 +103,57 @@ const updateTicket = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
   if (!user) {
     res.status(401);
-    throw new Error("user not found");
-    ("");
+    throw new Error('user not found');
+    ('');
   }
   const ticket = await Ticket.findById(req.params.id);
   if (!ticket) {
     res.status(404);
-    throw new Error("ticket not found");
+    throw new Error('ticket not found');
   }
   if (ticket.user.toString() !== req.user.id) {
     res.status(401);
-    throw new Error("not authorized");
+    throw new Error('not authorized');
   }
-  const updatedTicket = await Ticket.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  );
+  const { stageType } = req.body;
+  let stage;
+  if (stageType === 'confirme') {
+    stage = {
+      type: 'Confirmation Stage',
+      message:
+        "We're in the process of confirming the details you submitted for your warranty. Once the confirmation is complete, we'll promptly notify you.",
+    };
+  }
+  if (stageType === 'request') {
+    stage = {
+      type: 'Return Request',
+      message:
+        'We kindly request your immediate assistance in bringing the product you reported for inspection. Your prompt action will greatly assist in resolving the issue efficiently. Please let us know a convenient time for drop-off. Your cooperation is highly valued.',
+    };
+  }
+  if (stageType === 'recieved') {
+    stage = {
+      type: 'In-progress',
+      message:
+        "We've received the product you returned regarding the reported issue. Our team is currently inspecting it to address the matter effectively. We'll update you on the progress shortly.",
+    };
+  }
+
+  if (stageType === 'ready') {
+    stage = {
+      type: 'Ready for Collection',
+      message:
+        "We're pleased to inform you that your product is now ready for collection following the necessary repairs. Please let us know your preferred time for pick-up, and we'll ensure a smooth handover.",
+    };
+  }
+
+  const data = {
+    ...req.body,
+    stage,
+  };
+  const updatedTicket = await Ticket.findByIdAndUpdate(req.params.id, data, {
+    new: true,
+  });
   res.status(200).json(updatedTicket);
 });
 
