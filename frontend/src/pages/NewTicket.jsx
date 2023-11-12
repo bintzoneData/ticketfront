@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../CSS/pages/newticket.css';
 
 import { useNavigate } from 'react-router-dom';
@@ -6,12 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import ButtonBack from '../components/ButtonBack';
 
 import ButtonSpinner from '../assets/ButtonSpinner';
-import { createTicket, reset } from '../features/tickets/ticketSlice';
+import { createTicket } from '../features/tickets/ticketSlice';
 import { toast } from 'react-toastify';
 function NewTicket() {
-  const { isLoading, isSuccess, isError, message } = useSelector(
-    (state) => state.ticket
-  );
+  const { isLoading } = useSelector((state) => state.ticket);
 
   const [formData, setFormData] = useState({
     product: '',
@@ -95,11 +93,11 @@ function NewTicket() {
             {/*  purchase_date */}
             <div className='all-box NT-box'>
               <label htmlFor='' className='all-form-label '>
-                purchase_date date
+                purchase date
               </label>
               <input
                 type='date'
-                className='all-form-input all-H-25px all-fz-18px all-NT-input'
+                className='arriveDate all-form-input all-H-25px all-fz-18px all-NT-input all-'
                 onChange={onChange}
                 value={purchase_date}
                 id='purchase_date'
