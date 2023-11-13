@@ -4,7 +4,9 @@ import BookSpinner from '../assets/BookSpinner';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { update, reset } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 function Profile() {
+  const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -58,7 +60,13 @@ function Profile() {
         <header className='profile-title'>
           <p>my profile</p>
           <div className='profile-back'>
-            <button className='all-btn-submit all-B-navy'>back</button>
+            <button
+              type='button'
+              className='all-btn-submit all-B-navy'
+              onClick={() => navigate('/')}
+            >
+              back
+            </button>
           </div>
         </header>
         {isLoading && (

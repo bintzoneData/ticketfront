@@ -30,35 +30,18 @@
   text-align: center;
   color: #828282;
 }
-.NT-boxes {
-  width: fit-content;
-  display: flex;
-  width: 100%;
 
-  justify-content: space-between;
-}
 .NT-boxes-solo {
   max-width: 100%;
   display: flex;
 }
 .all-NT-input-solo {
 }
-.NT-box {
-  margin: 10px;
-  width: 33%;
-  display: flex;
-  flex-direction: column;
-}
 
 .NT-box > input {
   flex-grow: 1;
 }
 
-#purchase_date {
-  min-height: 25px;
-  background-color: white;
-  min-width: 100%;
-}
 .year {
   flex-grow: 1;
 }
@@ -87,26 +70,50 @@ textarea {
   .NT-box-solo {
     flex-grow: 1;
   }
+  .NT-boxes {
+    width: fit-content;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .NT-box {
+    margin: 10px;
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .NT-box > input {
+    flex-grow: 1;
+  }
+
+  #purchase_date {
+    min-height: 25px;
+    background-color: white;
+    /* min-width: 100%; */
+  }
 }
 @media only screen and (max-width: 768px) {
   .new-Ticket {
     margin: 10px;
+    margin-top: 50px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 5px;
     outline: 1px solid #142c54;
-    width: 98%;
+    position: relative;
+    width: 95%;
   }
-  .NT-boxes {
-    flex-direction: column;
-    width: 100%;
-  }
-  .NT-box {
-  }
+
   .all-NT-input {
   }
   .new-Ticket > h1 {
     text-transform: capitalize;
     font-family: 'Ubuntu', sans-serif;
     font-size: 2rem;
-    text-align: left;
+    text-align: center;
   }
   .NT-boxes-solo {
     width: 100%;
@@ -114,6 +121,20 @@ textarea {
   .NT-box-solo {
     width: 100%;
   }
-  .all-NT-input-solo {
+  .NT-boxes {
+  }
+  .NT-box {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .NT-box > input {
+    flex-grow: 1;
+  }
+
+  #purchase_date {
+    min-height: 25px;
+    background-color: white;
   }
 }

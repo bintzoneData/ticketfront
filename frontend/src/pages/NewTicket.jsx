@@ -34,29 +34,28 @@ function NewTicket() {
     e.preventDefault();
 
     e.preventDefault();
-    // dispatch(
-    //   createTicket({
-    //     product,
-    //     problem,
-    //     purchase_date,
-    //     note,
-    //     serial,
-    //   })
-    // )
-    //   .unwrap()
-    //   .then(() => {
-    //     // We got a good response so navigate the user
-    //     navigate('/tickets');
-    //     toast.success('New ticket created!');
-    //   })
-    //   .catch(toast.error);
+    dispatch(
+      createTicket({
+        product,
+        problem,
+        purchase_date,
+        note,
+        serial,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        // We got a good response so navigate the user
+        navigate('/tickets');
+        toast.success('New ticket created!');
+      })
+      .catch(toast.error);
   };
 
   return (
     <div className='main-new-Thicket'>
       <div className='new-Ticket'>
         {isLoading && <div className='my-tickets-loading'></div>}
-
         <div className='new-ticket-back'>
           <ButtonBack url={'/'} />
         </div>
@@ -67,7 +66,7 @@ function NewTicket() {
           {/* client info */}
 
           {/* client info */}
-          <div className='all-boxes  NT-boxes'>
+          <div className='NT-boxes'>
             {/* name */}
             <div className='NT-box'>
               <label htmlFor='' className='all-form-label '>
@@ -79,6 +78,7 @@ function NewTicket() {
                 onChange={onChange}
                 value={product}
                 id='product'
+                required
               >
                 <option value=''>choose</option>
                 <option value='iphone'>iphone 13</option>
