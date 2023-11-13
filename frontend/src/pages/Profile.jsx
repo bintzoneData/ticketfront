@@ -3,7 +3,7 @@ import '../CSS/pages/profile.css';
 import BookSpinner from '../assets/BookSpinner';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { update, reset } from '../features/auth/authSlice';
+import { logout, update, reset } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 function Profile() {
   const navigate = useNavigate();
@@ -30,6 +30,12 @@ function Profile() {
       ...prev,
       [e.target.id]: e.target.value,
     }));
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/');
   };
   const onSubmit = (e) => {
     e.preventDefault();
@@ -98,7 +104,11 @@ function Profile() {
                   close
                 </button>
               )}
-              <button type='button' className='all-btn-submit all-B-main'>
+              <button
+                type='button'
+                onClick={onLogout}
+                className='all-btn-submit all-B-main'
+              >
                 Logout
               </button>
             </div>

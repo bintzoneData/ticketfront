@@ -84,7 +84,7 @@
     border-radius: 10px;
     padding: 15px;
     position: relative;
-    height: 70vh;
+    height: 500px;
     overflow: hidden;
   }
 }
@@ -102,7 +102,7 @@
     border-radius: 10px;
     padding: 15px;
     position: relative;
-    height: 70vh;
+    height: 500px;
     overflow: hidden;
   }
   .tickets-Thead {
@@ -125,5 +125,10 @@
   }
   .tickets-Tdata > td {
     padding: 10px;
+  }
+}
+@media only screen and (max-width: 499px) {
+  .tickets {
+    padding-top: 20px;
   }
 }

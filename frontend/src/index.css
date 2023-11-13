@@ -11,9 +11,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8f6ff;
-  touch-action: none;
-  position: fixed;
-  width: 100%;
+}
+@media only screen and (min-width: 500px) {
+  body {
+    touch-action: none;
+    position: fixed;
+    width: 100%;
+  }
 }
 /* input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
