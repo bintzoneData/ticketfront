@@ -24,32 +24,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.arriveDate,
-.arriveTime {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-#purchase_date {
-  display: block;
-  min-height: 35px;
-  /* Solution 1 */
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  min-height: 1.2em;
-  min-width: none;
-  background-color: white;
-  min-width: 100%;
-}
-#product {
-  display: block;
-  min-height: 35px;
-  /* Solution 1 */
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  min-height: 1.2em;
-  min-width: none;
-  min-width: 96%;
-}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

@@ -34,22 +34,22 @@ function NewTicket() {
     e.preventDefault();
 
     e.preventDefault();
-    dispatch(
-      createTicket({
-        product,
-        problem,
-        purchase_date,
-        note,
-        serial,
-      })
-    )
-      .unwrap()
-      .then(() => {
-        // We got a good response so navigate the user
-        navigate('/tickets');
-        toast.success('New ticket created!');
-      })
-      .catch(toast.error);
+    // dispatch(
+    //   createTicket({
+    //     product,
+    //     problem,
+    //     purchase_date,
+    //     note,
+    //     serial,
+    //   })
+    // )
+    //   .unwrap()
+    //   .then(() => {
+    //     // We got a good response so navigate the user
+    //     navigate('/tickets');
+    //     toast.success('New ticket created!');
+    //   })
+    //   .catch(toast.error);
   };
 
   return (
@@ -69,13 +69,13 @@ function NewTicket() {
           {/* client info */}
           <div className='all-boxes  NT-boxes'>
             {/* name */}
-            <div className='all-box NT-box'>
+            <div className='NT-box'>
               <label htmlFor='' className='all-form-label '>
                 product name
               </label>
               <select
                 type='text'
-                className='all-form-input all-H-35px all-fz-18px all-NT-input'
+                className='all-form-input all-fz-18px all-H-36px'
                 onChange={onChange}
                 value={product}
                 id='product'
@@ -92,28 +92,28 @@ function NewTicket() {
               </select>
             </div>
             {/*  purchase_date */}
-            <div className='all-box NT-box'>
+            <div className=' NT-box'>
               <label htmlFor='' className='all-form-label '>
                 purchase date
               </label>
               <input
                 type='date'
-                className='arriveDate all-form-input  all-fz-18px all-NT-input all-'
+                className='arriveDate all-form-input  all-fz-18px all-H-25px all-'
                 ref={ref}
                 onChange={onChange}
                 value={purchase_date}
-                id='purchase_date '
+                id='purchase_date'
                 required
               />
             </div>
             {/* serial */}
-            <div className='all-box NT-box'>
+            <div className='NT-box'>
               <label htmlFor='' className='all-form-label'>
                 product serial no
               </label>
               <input
                 type='text'
-                className='all-form-input all-H-25px all-fz-18px all-NT-input'
+                className='all-form-input all-H-25px all-fz-18px all-H-25px'
                 onChange={onChange}
                 value={serial}
                 id='serial'
@@ -129,7 +129,7 @@ function NewTicket() {
                 problem problem
               </label>
               <textarea
-                className='all-form-input  all-fz-18px all-NT-input-solo'
+                className='all-form-input  all-fz-18px all-H-25px-solo'
                 onChange={onChange}
                 value={problem}
                 id='problem'
@@ -144,7 +144,7 @@ function NewTicket() {
                 add note
               </label>
               <textarea
-                className='all-form-input  all-fz-18px all-NT-input-solo'
+                className='all-form-input  all-fz-18px all-H-25px-solo'
                 onChange={onChange}
                 value={note}
                 id='note'
