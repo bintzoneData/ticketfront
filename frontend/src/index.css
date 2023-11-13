@@ -15,38 +15,44 @@ body {
   position: fixed;
   width: 100%;
 }
-/* input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
-} */
+input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-calendar-picker-indicator {
+  display: block;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.arriveDate,
+/* .arriveDate,
 .arriveTime {
   -webkit-appearance: none;
   -moz-appearance: none;
-}
+} */
 #purchase_date {
-  min-height: 35px;
-  min-width: 100%;
-}
-input[type='date'] {
   display: block;
+  min-height: 35px;
   /* Solution 1 */
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
   min-height: 1.2em;
   min-width: none;
-  min-width: 100%;
+  min-width: 96%;
 }
-/* input::-webkit-outer-spin-button,
+#product {
+  display: block;
+  min-height: 35px;
+  /* Solution 1 */
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  min-height: 1.2em;
+  min-width: none;
+  min-width: 96%;
+}
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-} */
+}
 .l-spinner {
   border-radius: 50%;
   border: 4px solid white;
