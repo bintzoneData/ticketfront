@@ -8,9 +8,10 @@ import ButtonBack from '../components/ButtonBack';
 import ButtonSpinner from '../assets/ButtonSpinner';
 import { createTicket } from '../features/tickets/ticketSlice';
 import { toast } from 'react-toastify';
+import { useRef } from 'react';
 function NewTicket() {
   const { isLoading } = useSelector((state) => state.ticket);
-
+  const ref = useRef();
   const [formData, setFormData] = useState({
     product: '',
     purchase_date: '',
@@ -96,10 +97,13 @@ function NewTicket() {
                 purchase date
               </label>
               <input
-                id='dateId'
                 type='date'
-                placeholder='yyyy-mm-dd'
-                pattern='\d{4}-\d{2}-\d{2}'
+                className='arriveDate all-form-input  all-fz-18px all-NT-input all-'
+                ref={ref}
+                onChange={onChange}
+                value={purchase_date}
+                id='purchase_date '
+                required
               />
             </div>
             {/* serial */}

@@ -29,9 +29,20 @@ code {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-#dateId {
+#purchase_date {
   min-height: 35px;
-  min-width: 95%;
+  min-width: 100%;
+}
+input[type='date'] {
+  display: block;
+
+  /* Solution 1 */
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  min-height: 1.2em;
+
+  /* Solution 2 */
+  /* min-width: 96%; */
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
