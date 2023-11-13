@@ -15,19 +15,20 @@ body {
   position: fixed;
   width: 100%;
 }
-input[type='date']::-webkit-inner-spin-button,
-input[type='date']::-webkit-calendar-picker-indicator {
-  display: block;
-}
+/* input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+} */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-/* .arriveDate,
+.arriveDate,
 .arriveTime {
   -webkit-appearance: none;
   -moz-appearance: none;
-} */
+}
 #purchase_date {
   display: block;
   min-height: 35px;
@@ -36,7 +37,8 @@ code {
   -moz-appearance: textfield;
   min-height: 1.2em;
   min-width: none;
-  min-width: 96%;
+  background-color: white;
+  min-width: 100%;
 }
 #product {
   display: block;
