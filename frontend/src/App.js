@@ -18,25 +18,27 @@ function App() {
       <Router>
         <div className='all-app'>
           <Navbar />
-          <Routes>
-            {/* pro */}
-            <Route path='/new-ticket' element={<PrivateRoute />}>
-              <Route path='/new-ticket' element={<NewTicket />} />
-            </Route>
-            <Route path='/' element={<Home />} />
+          <div className='lower-app'>
+            <Routes>
+              {/* pro */}
+              <Route path='/new-ticket' element={<PrivateRoute />}>
+                <Route path='/new-ticket' element={<NewTicket />} />
+              </Route>
+              <Route path='/' element={<Home />} />
 
-            <Route path='/tickets' element={<PrivateRoute />}>
-              <Route path='/tickets' element={<Tickets />} />
-            </Route>
-            <Route path='/ticket/:id' element={<PrivateRoute />}>
-              <Route path='/ticket/:id' element={<Ticket />} />
-            </Route>
-            <Route path='/profile' element={<PrivateRoute />}>
-              <Route path='/profile' element={<Profile />} />
-            </Route>
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
-          </Routes>
+              <Route path='/tickets' element={<PrivateRoute />}>
+                <Route path='/tickets' element={<Tickets />} />
+              </Route>
+              <Route path='/ticket/:id' element={<PrivateRoute />}>
+                <Route path='/ticket/:id' element={<Ticket />} />
+              </Route>
+              <Route path='/profile' element={<PrivateRoute />}>
+                <Route path='/profile' element={<Profile />} />
+              </Route>
+              <Route path='/register' element={<Register />} />
+              <Route path='/login' element={<Login />} />
+            </Routes>
+          </div>
         </div>
       </Router>
       <ToastContainer />

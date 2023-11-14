@@ -16,7 +16,7 @@ function Navbar() {
     <div className='main-navbar'>
       <div className='navbar-logo'>
         <Link to={'/'} className='navbar-logo-name'>
-          bint-go
+          Bintzone.
         </Link>
       </div>
 

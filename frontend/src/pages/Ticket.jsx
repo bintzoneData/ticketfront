@@ -57,11 +57,11 @@ function Ticket() {
               <header className='one-ticket-header'>
                 <div className='ticket-id-box'>
                   <p>ticket id:</p>
-                  <h2>{ticket._id}</h2>
+                  <h2 className='ok-select'>{ticket._id}</h2>
                 </div>
                 <div className='ticket-id-box'>
                   <p>submitted date:</p>
-                  <h2>{new Date(ticket.createdAt).toLocaleString('en-US')}</h2>
+                  <h2>{new Date(ticket.createdAt).toLocaleString('en-IN')}</h2>
                 </div>
               </header>
               <div className='one-ticket-details'>
@@ -84,7 +84,11 @@ function Ticket() {
                     >
                       purchase Date:
                     </label>
-                    <p>{ticket.purchase_date}</p>
+                    <p>
+                      {new Date(ticket.purchase_date).toLocaleDateString([
+                        'en-GB',
+                      ])}
+                    </p>
                   </div>
                 </main>
                 <main className='one-ticket-line'>

@@ -12,13 +12,27 @@
   height: 100%;
   align-items: center;
 }
+.tickets-choose {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tickets-choose > h1 {
+  text-transform: capitalize;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 3rem;
+  text-align: center;
+}
 .new-ticket-back {
+  margin: 10px;
   position: absolute;
   width: 97%;
   display: flex;
   justify-content: flex-end;
 }
 .new-Ticket > h1 {
+  margin: 10px;
   text-transform: capitalize;
   font-family: 'Ubuntu', sans-serif;
   font-size: 3rem;
@@ -30,7 +44,23 @@
   text-align: center;
   color: #828282;
 }
-
+.tickets-polite {
+  text-transform: capitalize;
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+  color: black;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.tickets-polite > span {
+  color: blue;
+}
+.tickets-create-btn {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin: 10px;
+}
 .NT-boxes-solo {
   max-width: 100%;
   display: flex;
@@ -51,8 +81,80 @@ textarea {
 }
 .new-Ticket-btn-box {
   margin: 10px;
+  display: flex;
+  gap: 10px;
 }
 
+.tickets-btn1 {
+  flex-basis: 30%;
+}
+.tickets-btn2 {
+  flex-grow: 1;
+}
+.NT-boxes2 {
+  width: fit-content;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.NT-box2 {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.NT-box2 > select {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 600;
+}
+.NT-box2 > select option {
+  text-transform: capitalize;
+  font-weight: 600;
+  font-family: 'Ubuntu', sans-serif;
+}
+.NT-box > select {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 600;
+}
+.NT-box > select option {
+  text-transform: capitalize;
+  font-weight: 600;
+  font-family: 'Ubuntu', sans-serif;
+}
+.NT-box > input {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 600;
+}
+.tickets-create-btn > button {
+  width: 170px;
+  height: 40px;
+}
+.tickets-loading-box {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.tickets-loading-box > h1 {
+  text-transform: capitalize;
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+  margin-top: 15px;
+}
+.new-ticket-change {
+  position: absolute;
+  right: 10px;
+  top: 70px;
+  text-transform: capitalize;
+}
+.new-ticket-change > button {
+  height: 35px;
+  font-size: 16px;
+}
 @media only screen and (min-width: 768px) {
   .new-Ticket {
     margin: 10px;
@@ -61,7 +163,7 @@ textarea {
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background-color: white;
     border-radius: 10px;
-    padding: 10px 5px;
+
     outline: 1px solid #142c54;
     position: relative;
     width: 750px;
@@ -101,7 +203,7 @@ textarea {
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background-color: white;
     border-radius: 10px;
-    padding: 10px 5px;
+
     outline: 1px solid #142c54;
     position: relative;
     width: 95%;
@@ -138,12 +240,64 @@ textarea {
     background-color: white;
     min-width: 96%;
   }
+  .NT-box2 {
+    width: 100%;
+  }
 }
 @media only screen and (max-width: 499px) {
+  .new-ticket-back {
+    margin: 10px;
+    right: 0px;
+    position: absolute;
+    width: 97%;
+    display: flex;
+    justify-content: flex-end;
+  }
   .new-Ticket > h1 {
     text-transform: capitalize;
     font-family: 'Ubuntu', sans-serif;
     font-size: 2rem;
     text-align: left;
+  }
+}
+@media screen and (max-width: 380px) {
+  .new-Ticket {
+    margin: 10px;
+    margin-top: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    background-color: white;
+    border-radius: 10px;
+
+    outline: 1px solid #142c54;
+    position: relative;
+    width: 95%;
+  }
+  .tickets-polite {
+    text-transform: capitalize;
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+    color: black;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+  }
+  .new-Ticket > h1 {
+    margin: 10px;
+    text-transform: capitalize;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.6rem;
+    text-align: left;
+  }
+  .new-Ticket > h2 {
+    text-transform: capitalize;
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+    color: #828282;
+    font-size: 1rem;
+  }
+  textarea {
+    resize: none;
+    height: 40px;
   }
 }

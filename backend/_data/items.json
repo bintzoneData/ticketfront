@@ -1,0 +1,87 @@
+[
+  {
+    "_id": "5d725cfec4ded7bcb480eaa4",
+    "description":"vitron 19 digital tv",
+    "warranty": false,
+    "duration": 1,
+    "category": "tv"
+  },
+  {
+    "_id": "5d725cb9c4ded7bcb480eaa1",
+    "description":"vitron 32 digital",
+    "warranty": true,
+    "duration": 2,
+    "category": "tv"
+  },
+  {
+    "_id": "5d725a4a7b292f5f8ceff789",
+    "description":"vitron 40 smart tv",
+    "warranty": true,
+    "duration": 1,
+    "category": "tv"
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be027",
+    "description":"vitron 43 smart tv",
+    "warranty": true,
+    "duration": 1,
+    "category": "tv"
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be025",
+    "description":"vitron 2.1 woofer v411",
+    "warranty": true,
+    "duration": 1,
+    "category": "woofer"
+    
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff787",
+    "description":"vitron 2.1 woofer v5201",
+    "warranty": true,
+    "duration": 1,
+    "category": "woofer"
+    
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be023",
+    "description":"vitron 3.1 woofer v635",
+    "warranty": true,
+    "duration": 1,
+    "category": "woofer"
+    
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be022",
+    "description":"vitron 3.1 woofer v641",
+    "warranty": true,
+    "duration": 1,
+    "category": "woofer"
+    
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f5d0",
+    "description":"vitron 3.1 woofer v833",
+    "warranty": true,
+    "duration": 1,
+    "category": "woofer"
+    
+  },
+  
+  {
+    "_id": "5d7a514b5d2c12c7449rs777",
+    "description":"vitron fridge vfr215l",
+    "warranty": true,
+    "duration": 1,
+    "category": "fridge"
+    
+  },
+  {
+    "_id": "5u9e914b5d2c12c7449rs456",
+    "description":"vitron fridge vfr310l",
+    "warranty": true,
+    "duration": 1,
+    "category": "fridge"
+    
+  }
+]

@@ -58,7 +58,7 @@ function Tickets() {
                     tickets.map((ticket) => (
                       <tr key={ticket._id} className='tickets-Tdata'>
                         <td>
-                          {new Date(ticket.createdAt).toLocaleString('en-US')}
+                          {new Date(ticket.createdAt).toLocaleString(['en-GB'])}
                         </td>
                         <td>{ticket.product}</td>
                         <td>

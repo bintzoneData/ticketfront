@@ -184,12 +184,14 @@ function Profile() {
               />
             </div>
             <div className='all-box'>
-              <button
-                type='submit'
-                className='all-btn-submit all-B-orange all-s25px m-top15 all-H-40px'
-              >
-                update
-              </button>
+              {editMode && (
+                <button
+                  type='submit'
+                  className='all-btn-submit all-B-orange all-s25px m-top15 all-H-40px'
+                >
+                  update
+                </button>
+              )}
             </div>
           </div>
         </>

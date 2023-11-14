@@ -1,26 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../CSS/pages/newticket.css';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ButtonBack from '../components/ButtonBack';
 
 import ButtonSpinner from '../assets/ButtonSpinner';
 import { createTicket } from '../features/tickets/ticketSlice';
+import { getCategories, getItems } from '../features/mix/authMix';
 import { toast } from 'react-toastify';
 import { useRef } from 'react';
 function NewTicket() {
-  const { isLoading } = useSelector((state) => state.ticket);
   const ref = useRef();
+
+  const [category, SetCategory] = useState('');
+  const [ready, setReady] = useState(false);
   const [formData, setFormData] = useState({
     product: '',
+
     purchase_date: '',
     serial: '',
     problem: '',
     note: '',
   });
+  const [itemD, setItemD] = useState([]);
+  const [categoryD, setCategoryD] = useState([]);
   const { product, purchase_date, serial, problem, note } = formData;
-
+  const location = useLocation();
+  const { CateData, isLoading1 } = useSelector((state) => state.categories);
+  const { ItemsData, isLoading2 } = useSelector((state) => state.items);
+  const { isLoading } = useSelector((state) => state.ticket);
   const onChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -29,11 +38,10 @@ function NewTicket() {
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const onSubmit = (e) => {
     e.preventDefault();
 
-    e.preventDefault();
+    console.log(formData);
     dispatch(
       createTicket({
         product,
@@ -51,115 +59,200 @@ function NewTicket() {
       })
       .catch(toast.error);
   };
+  const onCreate = () => {
+    if (category !== '') {
+      setReady(true);
+      dispatch(getItems(category));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+  useEffect(() => {
+    if (ItemsData) {
+      setItemD(ItemsData);
+    }
+  }, [ItemsData]);
+  useEffect(() => {
+    if (CateData) {
+      setCategoryD(CateData);
+    }
+  }, [CateData]);
+  const preventRefresh = (e) => {
+    e.preventDefault();
+  };
+  useEffect(() => {
+    window.addEventListener('beforeunload', preventRefresh);
+
+    return () => {
+      window.removeEventListener('beforeunload', preventRefresh);
+    };
+  }, []);
 
   return (
     <div className='main-new-Thicket'>
       <div className='new-Ticket'>
-        {isLoading && <div className='my-tickets-loading'></div>}
+        {isLoading1 ||
+          (isLoading && <div className='tickets-loading-box'></div>)}
+        {isLoading2 && <div className='tickets-loading-box'></div>}
         <div className='new-ticket-back'>
           <ButtonBack url={'/'} />
         </div>
         <h1>create new Ticket</h1>
-        <h2>please fill out the form below</h2>
-
-        <form onSubmit={onSubmit} className='ticket-form'>
-          {/* client info */}
-
-          {/* client info */}
-          <div className='NT-boxes'>
-            {/* name */}
-            <div className='NT-box'>
-              <label htmlFor='' className='all-form-label '>
-                product name
-              </label>
-              <select
-                type='text'
-                className='all-form-input all-fz-18px all-H-36px'
-                onChange={onChange}
-                value={product}
-                id='product'
-                required
+        {!ready ? (
+          <h2>please choose from an option below</h2>
+        ) : (
+          <h2>please fill out the form below</h2>
+        )}
+        {!ready ? (
+          <section className='tickets-choose'>
+            <div className='NT-boxes2'>
+              {/* name */}
+              <div className='NT-box2'>
+                <label className='all-form-label '>category</label>
+                <select
+                  type='text'
+                  className='all-form-input all-fz-18px all-H-36px'
+                  onChange={(e) => SetCategory(e.target.value)}
+                  value={category}
+                  id='product'
+                  required
+                >
+                  <option value=''>---choose---</option>
+                  {categoryD &&
+                    categoryD.map((cate) => (
+                      <option value={cate.category} key={cate._id}>
+                        {cate.category}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+            <div className='tickets-create-btn'>
+              <button
+                type='button'
+                onClick={onCreate}
+                className='all-btn-submit all-B-main all-fz-25px '
               >
-                <option value=''>choose</option>
-                <option value='iphone'>iphone 13</option>
-                <option value='iphone 13 pro max'>iphone 13 pro max</option>
-                <option value='iphone 14'>iphone 14</option>
-                <option value='iphone 14 pro max'>iphone 14 pro max</option>
-                <option value='iphone 14'>iphone 15</option>
-                <option value='iphone 15 pro max'>iphone 15 pro max</option>
-                <option value='ipad mini 6'>ipad mini 6</option>
-                <option value='ipad pro 12 inch'>iphone 15 pro 12"</option>
-              </select>
+                {isLoading1 ? <ButtonSpinner /> : 'create form'}
+              </button>
             </div>
-            {/*  purchase_date */}
-            <div className=' NT-box'>
-              <label htmlFor='' className='all-form-label '>
-                purchase date
-              </label>
-              <input
-                type='date'
-                className='arriveDate all-form-input  all-fz-18px all-H-25px all-'
-                ref={ref}
-                onChange={onChange}
-                value={purchase_date}
-                id='purchase_date'
-                required
-              />
+          </section>
+        ) : (
+          <form onSubmit={onSubmit} className='ticket-form'>
+            {/* client info */}
+
+            {/* client info */}
+            <div className='NT-boxes'>
+              {/* name */}
+              <div className='NT-box'>
+                <label htmlFor='' className='all-form-label '>
+                  product name
+                </label>
+                <select
+                  type='text'
+                  className='all-form-input all-fz-18px all-H-36px'
+                  onChange={onChange}
+                  value={product}
+                  id='product'
+                  required
+                >
+                  <option value=''>choose</option>
+                  {itemD &&
+                    itemD.map((cate) => (
+                      <option value={cate.code} key={cate._id}>
+                        {cate.description}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              {/*  purchase_date */}
+              <div className=' NT-box'>
+                <label htmlFor='' className='all-form-label '>
+                  purchase date
+                </label>
+                <input
+                  type='date'
+                  className='arriveDate all-form-input  all-fz-18px all-H-25px all-'
+                  ref={ref}
+                  onChange={onChange}
+                  value={purchase_date}
+                  id='purchase_date'
+                  required
+                />
+              </div>
+              {/* serial */}
+              <div className='NT-box'>
+                <label htmlFor='' className='all-form-label'>
+                  product serial no
+                </label>
+                <input
+                  type='text'
+                  className='all-form-input all-H-25px all-fz-18px all-H-25px'
+                  onChange={onChange}
+                  value={serial}
+                  id='serial'
+                  required
+                />
+              </div>
             </div>
-            {/* serial */}
-            <div className='NT-box'>
-              <label htmlFor='' className='all-form-label'>
-                product serial no
-              </label>
-              <input
-                type='text'
-                className='all-form-input all-H-25px all-fz-18px all-H-25px'
-                onChange={onChange}
-                value={serial}
-                id='serial'
-                required
-              />
+            {/* problem info */}
+            <div className='all-boxes  NT-boxes-solo'>
+              {/* desc */}
+              <div className='all-box NT-box-solo'>
+                <label htmlFor='' className='all-form-label '>
+                  problem problem
+                </label>
+                <textarea
+                  className='all-form-input  all-fz-18px all-H-25px-solo'
+                  onChange={onChange}
+                  value={problem}
+                  id='problem'
+                />
+              </div>
             </div>
-          </div>
-          {/* problem info */}
-          <div className='all-boxes  NT-boxes-solo'>
-            {/* desc */}
-            <div className='all-box NT-box-solo'>
-              <label htmlFor='' className='all-form-label '>
-                problem problem
-              </label>
-              <textarea
-                className='all-form-input  all-fz-18px all-H-25px-solo'
-                onChange={onChange}
-                value={problem}
-                id='problem'
-              />
+            {/* note */}
+            <div className='all-boxes  NT-boxes-solo'>
+              {/* desc */}
+              <div className='all-box NT-box-solo'>
+                <label htmlFor='' className='all-form-label '>
+                  add note
+                </label>
+                <textarea
+                  className='all-form-input  all-fz-18px all-H-25px-solo'
+                  onChange={onChange}
+                  value={note}
+                  id='note'
+                />
+              </div>
             </div>
-          </div>
-          {/* note */}
-          <div className='all-boxes  NT-boxes-solo'>
-            {/* desc */}
-            <div className='all-box NT-box-solo'>
-              <label htmlFor='' className='all-form-label '>
-                add note
-              </label>
-              <textarea
-                className='all-form-input  all-fz-18px all-H-25px-solo'
-                onChange={onChange}
-                value={note}
-                id='note'
-              />
+            <div className='tickets-polite'>
+              You're currently in <span>{category}</span> category mode. To
+              modify or remove this, kindly use the <span>change</span> button
             </div>
-          </div>
-          <div className='new-Ticket-btn-box'>
-            <button
-              type='submit'
-              className='all-btn-submit all-B-navy all-fz-25px all-W-100pc all-H-40px'
-            >
-              {isLoading ? <ButtonSpinner /> : 'submit ticket'}
-            </button>
-          </div>
-        </form>
+            <div className='new-Ticket-btn-box'>
+              {!isLoading2 && (
+                <button
+                  type='button'
+                  onClick={() => {
+                    dispatch(getCategories());
+                    setReady(false);
+                  }}
+                  className='all-btn-submit all-B-red all-fz-25px all-W-100pc all-H-40px tickets-btn1'
+                >
+                  {isLoading2 ? <ButtonSpinner /> : 'change'}
+                </button>
+              )}
+              <button
+                type='submit'
+                className='all-btn-submit all-B-navy all-fz-25px all-W-100pc all-H-40px tickets-btn2'
+              >
+                {isLoading2 || isLoading ? <ButtonSpinner /> : 'submit '}
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
