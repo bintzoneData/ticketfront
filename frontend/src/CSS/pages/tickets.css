@@ -29,7 +29,6 @@
   text-align: center;
 }
 .tickets-title {
-  width: 100%;
   align-items: center;
   margin: 0px 15px;
 }
@@ -47,6 +46,7 @@
 .tickets-section {
   width: 100%;
   margin-top: 20px;
+  height: 100%;
 }
 .tickets-table {
   width: 100%;
@@ -60,6 +60,8 @@
   font-family: 'Ubuntu', sans-serif;
   font-size: 20px;
   color: black;
+
+  width: 100%;
 }
 .tickets-Tdata {
   text-align: center;
@@ -68,14 +70,30 @@
   font-family: 'Ubuntu', sans-serif;
   font-size: 17px;
   font-weight: 600;
+  width: 100%;
   border-bottom: 1px dotted gray;
 }
+.tickets-no-data {
+  display: flex;
+  padding-top: 40px;
+  align-items: center;
+  flex-direction: column;
 
+  height: 100%;
+}
+.tickets-no-data > h1 {
+  text-transform: capitalize;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 20px;
+  margin: 10px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.tickets-no-data-svg {
+  width: 200px;
+}
 @media only screen and (min-width: 768px) {
   .tickets-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 800px;
     outline: 1px solid #f4f4f4;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -91,9 +109,6 @@
 
 @media only screen and (max-width: 768px) {
   .tickets-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 95%;
     outline: 1px solid #f4f4f4;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,

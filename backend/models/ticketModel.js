@@ -51,6 +51,10 @@ const ticketSchema = mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    process: {
+      type: String,
+      required: true,
+    },
     request: {
       type: Boolean,
       default: false,

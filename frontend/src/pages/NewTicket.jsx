@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import '../CSS/pages/newticket.css';
-
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import {
+  setDoc,
+  doc,
+  serverTimestamp,
+  collection,
+  addDoc,
+} from 'firebase/firestore';
+import { auth, db } from '../firebase.config';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ButtonBack from '../components/ButtonBack';
@@ -30,6 +38,7 @@ function NewTicket() {
   const { CateData, isLoading1 } = useSelector((state) => state.categories);
   const { ItemsData, isLoading2 } = useSelector((state) => state.items);
   const { isLoading } = useSelector((state) => state.ticket);
+  const { user } = useSelector((state) => state.auth);
   const onChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -38,26 +47,37 @@ function NewTicket() {
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(formData);
-    dispatch(
-      createTicket({
-        product,
-        problem,
-        purchase_date,
-        note,
-        serial,
-      })
-    )
-      .unwrap()
-      .then(() => {
-        // We got a good response so navigate the user
-        navigate('/tickets');
-        toast.success('New ticket created!');
-      })
-      .catch(toast.error);
+    try {
+      const formDataCopy = { ...formData };
+      formDataCopy.createdAt = serverTimestamp();
+      formDataCopy.owner = user._id;
+      const docref = collection(db, 'tickets');
+      await addDoc(docref, formDataCopy);
+      navigate('/tickets');
+      toast.success('New ticket created!');
+    } catch (error) {
+      toast.dismiss();
+      toast.error('Creating Rejected');
+    }
+    // console.log(formData);
+    // dispatch(
+    //   createTicket({
+    //     product,
+    //     problem,
+    //     purchase_date,
+    //     note,
+    //     serial,
+    //   })
+    // )
+    //   .unwrap()
+    //   .then(() => {
+    //     // We got a good response so navigate the user
+    //     navigate('/tickets');
+    //     toast.success('New ticket created!');
+    //   })
+    //   .catch(toast.error);
   };
   const onCreate = () => {
     if (category !== '') {

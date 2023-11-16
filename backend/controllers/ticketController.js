@@ -11,7 +11,8 @@ const getTickets = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error('user not found');
   }
-  const tickets = await Ticket.find({ user: req.user.id });
+  const tickets = await Ticket.find({ user: req.user.id } && req.query);
+
   res.status(200).json(tickets);
 });
 
@@ -48,6 +49,7 @@ const createTicket = asyncHandler(async (req, res) => {
     // created_time,
     status: 'active',
     stage: stage,
+    process: 'ongoing',
     stageType: 'confirme',
   });
   res.status(201).json(ticket);

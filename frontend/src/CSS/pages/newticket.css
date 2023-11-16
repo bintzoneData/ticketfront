@@ -91,6 +91,10 @@ textarea {
 .tickets-btn2 {
   flex-grow: 1;
 }
+.tickets-title {
+  display: flex;
+  justify-content: space-between;
+}
 .NT-boxes2 {
   width: fit-content;
   display: flex;
@@ -155,6 +159,52 @@ textarea {
   height: 35px;
   font-size: 16px;
 }
+
+.tickets-radio-inputs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  background-color: #eee;
+  box-sizing: border-box;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+  padding: 0.25rem;
+  width: 300px;
+  font-size: 14px;
+}
+
+.tickets-radio-inputs .tickets-radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.tickets-radio-inputs .tickets-radio input {
+  display: none;
+}
+.tickets-radio-inputs .tickets-radio span {
+  text-transform: capitalize;
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+  color: #828282;
+  font-weight: 600;
+}
+.tickets-radio-inputs .tickets-radio .tickets-name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem 0;
+  color: rgba(51, 65, 85, 1);
+  transition: all 0.15s ease-in-out;
+}
+
+.tickets-radio-inputs .tickets-radio input:checked + .tickets-name {
+  background-color: #fff;
+  font-weight: 600;
+}
+
 @media only screen and (min-width: 768px) {
   .new-Ticket {
     margin: 10px;
@@ -242,6 +292,21 @@ textarea {
   }
   .NT-box2 {
     width: 100%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .tickets-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  .tickets-back {
+    position: absolute;
+    right: 10px;
+  }
+  .tickets-title > h1 {
+    align-self: flex-start;
   }
 }
 @media only screen and (max-width: 499px) {
