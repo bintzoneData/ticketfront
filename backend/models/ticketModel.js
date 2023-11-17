@@ -28,6 +28,10 @@ const ticketSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    clientId: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -50,10 +54,6 @@ const ticketSchema = mongoose.Schema(
     comfirme: {
       type: Boolean,
       default: true,
-    },
-    process: {
-      type: String,
-      required: true,
     },
     request: {
       type: Boolean,

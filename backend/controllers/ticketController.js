@@ -11,8 +11,7 @@ const getTickets = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error('user not found');
   }
-  const tickets = await Ticket.find({ user: req.user.id } && req.query);
-
+  const tickets = await Ticket.find({ clientId: req.user.id });
   res.status(200).json(tickets);
 });
 
@@ -20,8 +19,7 @@ const getTickets = asyncHandler(async (req, res) => {
 // @route post/api/tickets
 // acess private
 const createTicket = asyncHandler(async (req, res) => {
-  const { product, problem, purchase_date, serial, note, request, stageType } =
-    req.body;
+  const { product, problem, purchase_date, serial, note, clientId } = req.body;
   if (!product || !problem) {
     res.status(400);
     throw new Error('please add product and issue');
@@ -49,7 +47,7 @@ const createTicket = asyncHandler(async (req, res) => {
     // created_time,
     status: 'active',
     stage: stage,
-    process: 'ongoing',
+    clientId,
     stageType: 'confirme',
   });
   res.status(201).json(ticket);
